@@ -1,0 +1,43 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+VinylKeeper/dist
+VinylKeeper/tmp
+VinylKeeper/out-tsc
+
+# dependencies
+VinylKeeper/node_modules
+
+# IDEs and editors
+VinylKeeper/.idea
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+VinylKeeper/.sass-cache
+VinylKeeper/connect.lock
+VinylKeeper/coverage
+VinylKeeper/libpeerconnection.log
+npm-debug.log
+testem.log
+VinylKeeper/typings
+
+# e2e
+VinylKeeper/e2e/*.js
+VinylKeeper/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
