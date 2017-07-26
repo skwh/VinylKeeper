@@ -1,0 +1,12 @@
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$vk-app-primary: mat-palette($mat-teal);
+$vk-app-accent:  mat-palette($mat-deep-orange, A400, A200, A700);
+
+$vk-app-warn: mat-palette($mat-deep-purple);
+
+$vk-app-theme: mat-light-theme($vk-app-primary, $vk-app-accent, $vk-app-warn);
+
+@include angular-material-theme($vk-app-theme);

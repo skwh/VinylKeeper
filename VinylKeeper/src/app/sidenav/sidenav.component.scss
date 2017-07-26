@@ -1,0 +1,24 @@
+@import "~@angular/material/theming";
+
+@import "../../material-theme.scss";
+
+md-sidenav-container {
+  width:100%;
+  height:100%;
+  padding:0;
+  background-color: #dddddd;
+}
+md-sidenav {
+  width:15vw;
+}
+md-list-item {
+  padding:1%;
+  &:hover {
+    background-color: mat-color($vk-app-accent);
+    h4, md-icon {
+      color: white;
+    }
+  }
+}
+
+
