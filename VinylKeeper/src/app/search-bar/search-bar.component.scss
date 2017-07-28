@@ -1,0 +1,39 @@
+@import "~@angular/material/theming";
+
+@import "../../material-theme.scss";
+
+div.container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: map_get($vk-app-primary, darker);
+  min-height: 30px;
+  min-width: 500px;
+  border-radius: 5px;
+
+  input {
+    background-color: transparent;
+    color: white;
+    border: none;
+    width: 90%;
+    &:focus {
+      outline-width: 0;
+    }
+  }
+}
+
+.selected {
+  background-color: map_get($vk-app-primary, lighter);
+}
+
+.prefix {
+  padding: 10px;
+  cursor: default;
+}
+
+::-webkit-input-placeholder {
+  color: darken(white, 20%);
+  &:active {
+    display:none;
+  }
+}
