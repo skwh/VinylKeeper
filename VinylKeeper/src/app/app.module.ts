@@ -4,12 +4,13 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {
   MdButtonModule,
+  MdCardModule,
   MdGridListModule,
   MdIconModule,
   MdInputModule,
   MdListModule,
   MdSidenavModule,
-  MdToolbarModule
+  MdToolbarModule,
 } from '@angular/material';
 
 import {AppComponent} from './app.component';
@@ -17,6 +18,10 @@ import {ToolbarComponent} from './toolbar/toolbar.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {RecordsPageComponent} from './records-page/records-page.component';
 import {RecordCardComponent} from './record-card/record-card.component';
+import {SearchBarComponent} from './search-bar/search-bar.component';
+import {HomePageComponent} from './home-page/home-page.component';
+import {RecordsGridComponent} from './records-grid/records-grid.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,11 @@ import {RecordCardComponent} from './record-card/record-card.component';
     ToolbarComponent,
     SidenavComponent,
     RecordsPageComponent,
-    RecordCardComponent
+    RecordCardComponent,
+    SearchBarComponent,
+    HomePageComponent,
+    RecordsGridComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -36,16 +45,25 @@ import {RecordCardComponent} from './record-card/record-card.component';
     MdListModule,
     MdIconModule,
     MdGridListModule,
+    MdCardModule,
     RouterModule.forRoot([
       {
         path: 'records',
         component: RecordsPageComponent,
       },
       {
+        path: 'home',
+        component: HomePageComponent,
+      },
+      {
         path: '',
-        redirectTo: '/records',
+        redirectTo: '/home',
         pathMatch: 'full',
       },
+      {
+        path: '**',
+        component: PageNotFoundComponent,
+      }
     ]),
   ],
   providers: [],
