@@ -1,5 +1,5 @@
 <md-card (mouseenter)="toggleState()" (mouseleave)="toggleState()" [@hover]="this.state">
-  <md-card-title [style.visibility]="this.state == 'active' ? 'visible' : 'hidden'">
+  <md-card-title class="record-card-text" [style.visibility]="this.state == 'active' ? 'visible' : 'hidden'">
     {{record.title}}<br />By {{record.artists}}
   </md-card-title>
   <md-card-content *ngIf="record.coverArtUrl">

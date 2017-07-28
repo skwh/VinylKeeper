@@ -1,5 +1,5 @@
 <md-sidenav-container>
-  <md-sidenav mode="side" opened="true">
+  <md-sidenav mode="{{this.sideNavMode}}" opened="{{this.sideNavOpen}}">
     <md-list>
       <md-list-item routerLinkActive="active" *ngFor="let item of navigationList" [routerLinkActiveOptions]="{exact: true}">
         <md-icon md-list-icon class="link-icon">{{item.iconName}}</md-icon>

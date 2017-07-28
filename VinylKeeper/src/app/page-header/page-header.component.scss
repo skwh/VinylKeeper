@@ -5,9 +5,11 @@
 $header-color: lighten(map_get($mat-dark-theme-background, background), 35%);
 
 div {
-  margin: 32px 0 16px;
+  margin: auto;
+  margin-top: 32px;
+  margin-bottom: 16px;
   display: flex;
-  max-width:800px;
+  max-width: 90%;
   .page-header-text {
     font-family: "Roboto", sans-serif;
     font-weight: 100;

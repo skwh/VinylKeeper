@@ -4,9 +4,12 @@ div.records-flex-grid {
   align-content: space-around;
   flex-wrap: wrap;
   align-items: center;
-  max-width:80%;
+  max-width: 90%;
+  margin: auto;
 }
 
 vk-record-card {
   margin: 2%;
+  min-width: 200px;
+  min-height: 200px;
 }

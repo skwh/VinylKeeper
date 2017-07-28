@@ -1,5 +1,9 @@
 md-toolbar {
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+
+md-icon.menu {
+  cursor: pointer;
 }
 
 .spacer {

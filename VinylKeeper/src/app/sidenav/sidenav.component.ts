@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {NAV_ITEMS, Navitem} from './navitem';
 
 @Component({
@@ -8,8 +8,22 @@ import {NAV_ITEMS, Navitem} from './navitem';
 })
 export class SidenavComponent implements OnInit {
   navigationList: Navitem[];
+  sideNavMode = 'side';
+  sideNavOpen = true;
 
-  constructor() { }
+  constructor(private zone: NgZone) {
+    window.onresize = (e) => {
+      zone.run(() => {
+        if (window.innerWidth <= 1024) {
+          this.sideNavMode = 'float';
+          this.sideNavOpen = false;
+        } else {
+          this.sideNavOpen = true;
+          this.sideNavMode = 'side';
+        }
+      })
+    }
+  }
 
   ngOnInit() {
     this.navigationList = NAV_ITEMS;
