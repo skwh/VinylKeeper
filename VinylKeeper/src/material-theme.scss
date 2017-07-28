@@ -7,6 +7,6 @@ $vk-app-accent:  mat-palette($mat-deep-orange, A400, A200, A700);
 
 $vk-app-warn: mat-palette($mat-deep-purple);
 
-$vk-app-theme: mat-light-theme($vk-app-primary, $vk-app-accent, $vk-app-warn);
+$vk-app-theme: mat-dark-theme($vk-app-primary, $vk-app-accent, $vk-app-warn);
 
 @include angular-material-theme($vk-app-theme);

@@ -1,5 +1,8 @@
-<md-grid-tile>
-  <md-grid-tile-header>{{record.title}} by {{record.artists}}</md-grid-tile-header>
-  <img *ngIf="record.coverArtUrl" src="{{record.coverArtUrl}}" alt="{{record.title}}">
-  <div *ngIf="!record.coverArtUrl"></div>
-</md-grid-tile>
+<md-card (mouseenter)="toggleState()" (mouseleave)="toggleState()" [@hover]="this.state">
+  <md-card-title [style.visibility]="this.state == 'active' ? 'visible' : 'hidden'">
+    {{record.title}}<br />By {{record.artists}}
+  </md-card-title>
+  <md-card-content *ngIf="record.coverArtUrl">
+    <img src="{{record.coverArtUrl}}" alt="{{record.title}}">
+  </md-card-content>
+</md-card>

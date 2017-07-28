@@ -1,3 +1,2 @@
-<md-grid-list cols="3">
-  <vk-record-card *ngFor="let album of recordsList" [record]="album"></vk-record-card>
-</md-grid-list>
+<h2 class="mat-headline page-headline">Records</h2>
+<vk-records-grid [recordsList]="this.recordsList"></vk-records-grid>
