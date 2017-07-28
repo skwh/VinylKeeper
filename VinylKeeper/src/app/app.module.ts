@@ -22,6 +22,7 @@ import {SearchBarComponent} from './search-bar/search-bar.component';
 import {HomePageComponent} from './home-page/home-page.component';
 import {RecordsGridComponent} from './records-grid/records-grid.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {PageHeaderComponent} from './page-header/page-header.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
     SearchBarComponent,
     HomePageComponent,
     RecordsGridComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PageHeaderComponent
   ],
   imports: [
     BrowserModule,

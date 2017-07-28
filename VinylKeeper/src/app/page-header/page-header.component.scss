@@ -1,0 +1,24 @@
+@import "~@angular/material/theming";
+
+@import "../../material-theme.scss";
+
+$header-color: lighten(map_get($mat-dark-theme-background, background), 35%);
+
+div {
+  margin: 32px 0 16px;
+  display: flex;
+  max-width:800px;
+  .page-header-text {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-size: 24px;
+    color: $header-color;
+  }
+  .page-header-hr {
+    background-color: $header-color;
+    display: inline-block;
+    width: 80%;
+    height: 1px;
+    margin: auto;
+  }
+}
