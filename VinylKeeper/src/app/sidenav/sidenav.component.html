@@ -1,9 +1,9 @@
 <md-sidenav-container>
   <md-sidenav mode="side" opened="true">
     <md-list>
-      <md-list-item *ngFor="let item of navigationList">
-        <md-icon md-list-icon>{{item.iconName}}</md-icon>
-        <h4 class="md-display-4" routerLink="{{item.path}}" md-line>{{item.text}}</h4>
+      <md-list-item routerLinkActive="active" *ngFor="let item of navigationList" [routerLinkActiveOptions]="{exact: true}">
+        <md-icon md-list-icon class="link-icon">{{item.iconName}}</md-icon>
+        <h4 class="md-display-4 link-text" routerLink="{{item.path}}" md-line>{{item.text}}</h4>
       </md-list-item>
     </md-list>
   </md-sidenav>

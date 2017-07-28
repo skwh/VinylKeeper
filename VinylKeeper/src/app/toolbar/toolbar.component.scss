@@ -1,0 +1,19 @@
+md-toolbar {
+  justify-content: space-around;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.end-spacer {
+  flex-grow: 2;
+}
+
+vk-search-bar {
+  flex-grow: 2;
+}
+
+.mat-headline {
+  padding: 0 2vw;
+}
