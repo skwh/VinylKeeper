@@ -2,13 +2,13 @@
 
 @import "../../material-theme.scss";
 
-$dark-background-color: map_get(map_get($vk-app-theme, background), background);
+$card-overlay-background-color: map_get(map_get($vk-app-theme, background), background);
 
 md-card-content::after {
   display:block;
   position:absolute;
   z-index: 3;
-  background-color: $dark-background-color;
+  background-color: $card-overlay-background-color;
   opacity:0;
   width:200%;
   height:200%;
@@ -23,6 +23,7 @@ md-card-content::after {
 }
 
 md-card {
+  cursor: pointer;
   padding: 0;
   min-width: 200px;
   min-height: 200px;
@@ -35,7 +36,7 @@ md-card {
   justify-content: space-around;
   &:hover {
     md-card-content::after {
-      opacity: 0.7;
+      opacity: 0.9;
     }
   }
 }

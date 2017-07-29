@@ -7,18 +7,20 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SearchBarComponent implements OnInit {
   placeholder = 'Search';
+  focused = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  togglePlaceholder() {
+  toggleFocus() {
     if (!this.placeholder) {
       this.placeholder = 'Search';
     } else {
       this.placeholder = '';
     }
+    this.focused = !this.focused;
   }
 
 }

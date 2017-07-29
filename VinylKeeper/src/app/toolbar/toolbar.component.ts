@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {UIService} from '../ui.service';
 
 @Component({
   selector: 'vk-toolbar',
@@ -7,13 +8,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ui: UIService) {
+  }
 
   ngOnInit() {
+
   }
 
   toggleSidenav() {
-
+    this.ui.sidenavMessageSubject.next();
   }
 
 }

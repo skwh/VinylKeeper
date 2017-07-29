@@ -24,6 +24,8 @@ import {RecordsGridComponent} from './records-grid/records-grid.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {PageHeaderComponent} from './page-header/page-header.component';
 
+import {UIService} from './ui.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +70,7 @@ import {PageHeaderComponent} from './page-header/page-header.component';
       }
     ]),
   ],
-  providers: [],
+  providers: [UIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

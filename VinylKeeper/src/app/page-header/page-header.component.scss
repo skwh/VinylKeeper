@@ -2,22 +2,24 @@
 
 @import "../../material-theme.scss";
 
-$header-color: lighten(map_get($mat-dark-theme-background, background), 35%);
+$theme-background: map_get(map_get($vk-app-theme, background), background);
+
+$header-color: darken($theme-background, 35%);
+
+$theme-accent-default: map_get($vk-app-accent, default);
 
 div {
-  margin: auto;
-  margin-top: 32px;
-  margin-bottom: 16px;
+  margin: 32px auto 16px;
   display: flex;
   max-width: 90%;
   .page-header-text {
     font-family: "Roboto", sans-serif;
     font-weight: 100;
     font-size: 24px;
-    color: $header-color;
+    color: $theme-accent-default;
   }
   .page-header-hr {
-    background-color: $header-color;
+    background-color: $theme-accent-default;
     display: inline-block;
     width: 80%;
     height: 1px;

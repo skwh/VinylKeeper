@@ -1,4 +1,4 @@
-<div class="container" #container>
+<div class="container" #container [class.selected]="this.focused">
   <md-icon class="prefix">search</md-icon>
-  <input placeholder="{{this.placeholder}}" (focus)="togglePlaceholder()" (blur)="togglePlaceholder()" class="mat-body-1" #search>
+  <input placeholder="{{this.placeholder}}" (focus)="toggleFocus()" (blur)="toggleFocus()" class="mat-body-1" #search>
 </div>
