@@ -13,6 +13,7 @@ def main(argv):
     server.start()
 
 
+# TODO: Reorganize these util methods
 def extract_args(argv):
     """Extracts argument pairs from sys.argv."""
     args = []
@@ -23,11 +24,11 @@ def extract_args(argv):
     return args
 
 
-def get_server_args(argv):
+def get_server_args(args):
     """Extracts the port and database path from a list of arguments."""
     port = DEFAULT_PORT_NUMBER
     database_path = DEFAULT_DATABASE_PATH
-    for val in argv:
+    for val in args:
         if val[0] == "port":
             port = val[1]
         elif val[0] == "database" or val[0] == "database_path":

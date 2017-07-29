@@ -5,6 +5,7 @@ DEFAULT_TABLE_NAME = "vinyl_records"
 
 _DEFAULT_SELECT_QUERY = "SELECT * FROM %s"
 
+
 class DatabaseError(Exception):
     def __init__(self, message):
         self.message = message
@@ -15,14 +16,14 @@ class DatabaseError(Exception):
 
 class VKDatabase:
     def __init__(self, database_path, table_name=DEFAULT_TABLE_NAME):
+        self._check_init(database_path)
         self.database_path = database_path
         self.db = sqlite3.connect(self.database_path)
         self.table_name = table_name
         self.default_select_query = _DEFAULT_SELECT_QUERY % self.table_name
-        self._check_init()
 
-    def _check_init(self):
-        full_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), self.database_path)
+    def _check_init(self, database_path):
+        full_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), database_path)
         try:
             size = os.path.getsize(full_path)
             if not size:
