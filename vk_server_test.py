@@ -19,3 +19,9 @@ class VKServerTest(unittest.TestCase):
             VKServer(bad_port_number, 'vinyl_keeper.db')
 
             # TODO: Tests for other server methods and functionality
+
+
+class ExtensibleHTTPRequestHandlerTest(unittest.TestCase):
+    # TODO: tests for request handler
+    def empty_test(self):
+        self.fail("Write tests for request handler")
