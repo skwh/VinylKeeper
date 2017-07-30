@@ -34,7 +34,20 @@ class VKDatabase:
     def _execute_query(self, query, params=()):
         cursor = self.db.cursor()
         cursor.execute(query, params)
-        return cursor.fetchall()
+        return self._records_list_to_objects(cursor.fetchall())
+
+    def _records_list_to_objects(self, records_list):
+        objects = []
+        for item in records_list:
+            record = {
+                'id': item[0],
+                'title': item[1],
+                'artist': item[2],
+                'cover_art_loc': item[3],
+                'playcount': item[4]
+            }
+            objects.append(record)
+        return objects
 
     def get_records(self):
         return self._execute_query(self.default_select_query)

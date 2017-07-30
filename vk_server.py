@@ -1,3 +1,4 @@
+import json
 import os
 import signal
 import sys
@@ -6,6 +7,31 @@ from SocketServer import TCPServer
 
 from vk_database import VKDatabase
 
+_MIME_TYPES = {
+    '.txt': 'text/plain',
+    '.bin': 'application/octet-stream',
+    '.css': 'text/css',
+    '.gif': 'image/gif',
+    '.htm': 'text/html',
+    '.html': 'text/html',
+    '.ico': 'image/x-icon',
+    '.jar': 'application/java-archive',
+    '.js': 'application/javascript',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.json': 'application/json',
+    '.otf': 'font/otf',
+    '.png': 'image/png',
+    '.pdf': 'application/pdf',
+    '.svg': 'image/svg+xml',
+    '.tar': 'application/x-tar',
+    '.ttf': 'font/ttf',
+    '.woff': 'font/woff',
+    '.woff2': 'font/woff2',
+    '.xhtml': 'application/xhtml+xml',
+    '.xml': 'application/xml',
+    '.zip': 'application/zip'
+}
 
 class VKServer:
     def __init__(self, port_number, database_path):
@@ -15,7 +41,6 @@ class VKServer:
             self.port_number = port_number
             self.database = database_path
         self.database_handler = VKDatabase(self.database)
-        # TODO: re-write handler for Angular & database api usage
         self.request_handler = ExtensibleHTTPRequestHandler({
             '/api/GetRecords': self.GetRecords
         }, project_root='./VinylKeeper/dist/')
@@ -33,7 +58,7 @@ class VKServer:
 
     def GetRecords(self, request):
         results = self.database_handler.get_records()
-        request.reply(results)
+        request.reply(json.dumps(results), _MIME_TYPES['.json'])
 
     def status(self):
         return self.status
@@ -64,14 +89,14 @@ class ExtensibleHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def __init__(self, paths, project_root='./'):
         """Set up default paths and their handlers."""
-        self.PROVIDED_PATHS = paths
+        self.METHOD_PATHS = paths
+        self.METHOD_PATHS['/pathz'] = self._pathz
         self._PROJECT_ROOT = project_root
-        self._DEFAULT_PATHS = {
+        self._FILE_PATHS = {
             '' : self._PROJECT_ROOT + 'index.html',
             '/' : self._PROJECT_ROOT + 'index.html'
         }
         self._generate_filetree("")
-        print self._DEFAULT_PATHS
 
     def _generate_filetree(self, path):
         """Generates a dict with path maps."""
@@ -87,54 +112,64 @@ class ExtensibleHTTPRequestHandler(BaseHTTPRequestHandler):
             if os.path.isfile(full_file_path):
                 # Map structure: relative_path: file_path
                 relative_path = os.path.join("/", path, filename)
-                self._DEFAULT_PATHS[relative_path] = full_file_path
+                self._FILE_PATHS[relative_path] = full_file_path
             else:
                 # If the filename is a directory, generate a tree for it.
                 self._generate_filetree(filename)
 
-    def _get_file_contents(self, filename):
+    def _serve_file(self, path_to_file):
         try:
-            return open(filename, 'r').read()
-        except IOError as e:
-            self.send_error(500, e.message)
+            file_contents = open(path_to_file, 'r').read()
+            file_extension = os.path.splitext(path_to_file)[1]
+            file_type = self._get_mime_type(file_extension)
+            self._send_string(file_contents, 200, "OK", file_type)
+        except Exception as e:
+            print e
+            self.send_error(500)
 
-    def _serve_file(self, filename):
-        self._serve_text(self._get_file_contents(filename))
-
-    def _serve_text(self, string):
-        try:
-            self._send_content(string, 200, "SURE OK THEN")
-        except IOError as e:
-            self.send_error(500, e.message)
-
-    def _send_content(self, object, code, message):
-        content_type = 'text/html'
-        content_length = sys.getsizeof(object)
+    def _send_string(self, string, code, message, content_type):
+        content_length = sys.getsizeof(string)
+        self.log_request(code, content_length)
         self.send_response(code, message)
         self.send_header('Content-type:', content_type)
         self.send_header('Content-Length:', content_length)
         self.end_headers()
-        self.wfile.write(object)
+        self.wfile.write(string)
         self.wfile.flush()
 
-    def reply(self, contents):
-        self._send_content(contents, 200, "OK")
+    def reply(self, contents, mime_type='text/plain'):
+        if type(contents) is str and os.path.isfile(contents):
+            self._serve_file(contents)
+        else:
+            self._send_string(contents, 200, "OK", mime_type)
 
     def _route(self, path):
         """Path is relative to the domain root: /index.html, /home, etc"""
-        # Detect if route is in DEFAULT_PATHS
-        if self._DEFAULT_PATHS[path]:
+        # Detect if route is in _FILE_PATHS
+        if path in self._FILE_PATHS:
             # Serve file content
-            self._serve_file(self._DEFAULT_PATHS[path])
-        # Detect if route is in PROVIDED_PATHS
-        elif self.PROVIDED_PATHS[path]:
+            self._serve_file(self._FILE_PATHS[path])
+        # Detect if route is in METHOD_PATHS
+        elif path in self.METHOD_PATHS:
             # Call the provided method
-            self.PROVIDED_PATHS[path](self)
+            self.METHOD_PATHS[path](self)
+        else:
+            self.send_error(404)
 
+    def _pathz(self, request):
+        del request
+        content = ("FILE PATHS: %s"
+                   "METHOD PATHS: %s") % (self._FILE_PATHS, self.METHOD_PATHS)
+        self.reply(content, 'text/plain')
 
+    def _statusz(self, request):
+        self.reply(request.server.status(), 'text/plain')
 
     def do_GET(self):
         self._route(self.path)
 
     def do_HEAD(self):
         print "HEAD request received"
+
+    def _get_mime_type(self, extension):
+        return _MIME_TYPES[extension]
